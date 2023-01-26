@@ -37,3 +37,8 @@ jobs:
       url: "https://weblate.opg.service.justice.gov.uk"
       # url: "https://${{ needs.pr_deploy.outputs.url }}"
     needs: [pr_deploy]
+    steps:
+      - name: End of PR Workflow
+        run: |
+          echo "Development environment deployed"
+          echo "URL: https://weblate.opg.service.justice.gov.uk"
