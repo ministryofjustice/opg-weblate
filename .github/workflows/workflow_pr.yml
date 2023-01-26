@@ -1,0 +1,48 @@
+name: "PR"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+  security-events: write
+  pull-requests: read
+  actions: none
+  checks: none
+  deployments: none
+  issues: none
+  packages: none
+  repository-projects: none
+  statuses: none
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  pr_deploy:
+      name: PR Environment Deploy
+      uses: ./.github/workflows/terraform_environment_job.yml
+      with:
+        workspace_name: development
+      secrets: inherit # pragma: allowlist secret
+  end_of_pr_workflow:
+    name: End of PR Workflow
+    if: |
+      always() &&
+      needs.pr_deploy.result == 'success' &&
+      needs.create_tags.result == 'success' &&
+      needs.ui_tests_pr_env.result == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: development
+      url: "https://${{ needs.pr_deploy.outputs.url }}"
+    needs: [pr_deploy]
+    steps:
+      - name: End of PR Workflow
+        run: |
+          echo "${{ needs.pr_deploy.outputs.terraform_workspace_name }} PR environment tested, built and deployed"
+          echo "URL: https://${{ needs.pr_deploy.outputs.url }}"
