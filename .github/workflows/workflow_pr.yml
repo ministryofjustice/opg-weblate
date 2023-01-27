@@ -28,7 +28,7 @@ jobs:
       uses: ./.github/workflows/terraform_environment_job.yml
       with:
         workspace_name: development
-        environment_path: pr_environment
+        environment_path: pr_environments
       secrets:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_ACTIONS }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ACTIONS }}
