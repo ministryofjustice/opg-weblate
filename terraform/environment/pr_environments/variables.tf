@@ -1,7 +1,3 @@
-variable "container_version" {
-  type = string
-}
-
 locals {
   environment_name = lower(replace(terraform.workspace, "_", "-"))
 

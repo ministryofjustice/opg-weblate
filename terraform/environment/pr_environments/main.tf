@@ -4,7 +4,7 @@ module "weblate" {
   application_log_retention_days  = 30
   ecs_capacity_provider           = "FARGATE_SPOT"
   weblate_repository_url          = "weblate/weblate"
-  weblate_container_version       = var.container_version
+  weblate_container_version       = "latest"
   alb_deletion_protection_enabled = false
 
   providers = {
