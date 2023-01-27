@@ -1,4 +1,4 @@
-module "eu_west_1" {
+module "environment" {
   source = "../modules/environment"
 
   application_log_retention_days  = 30
