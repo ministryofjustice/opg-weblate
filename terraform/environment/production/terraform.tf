@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket         = "opg.terraform.state"
-    key            = "opg-weblate-environment-pr-environments/terraform.tfstate"
+    key            = "opg-weblate-environment-production/terraform.tfstate"
     encrypt        = true
     region         = "eu-west-1"
     role_arn       = "arn:aws:iam::311462405659:role/opg-weblate-ci"
