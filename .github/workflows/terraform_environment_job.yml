@@ -3,7 +3,7 @@ on:
     inputs:
       workspace_name:
         description: 'The terraform workspace to target for environment actions'
-        required: true
+        default: 'default'
         type: string
       environment_path:
         description: 'The path part for environment actions, it will be prefixed with terraform/environment/'

@@ -27,7 +27,6 @@ jobs:
       name: PR Environment Deploy
       uses: ./.github/workflows/terraform_environment_job.yml
       with:
-        workspace_name: default
         environment_path: production
       secrets:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_ACTIONS }}
