@@ -1,4 +1,4 @@
-data "aws_route53_zone" "weblate_lpa" {
+data "aws_route53_zone" "weblate" {
   provider = aws.management_global
   name     = "weblate.opg.service.justice.gov.uk"
 }
@@ -10,8 +10,8 @@ locals {
 resource "aws_route53_record" "app" {
   # weblate.opg.service.justice.gov.uk
   provider = aws.management_global
-  zone_id  = data.aws_route53_zone.weblate_lpa.zone_id
-  name     = "${local.dns_namespace_for_environment}${data.aws_route53_zone.weblate_lpa.name}"
+  zone_id  = data.aws_route53_zone.weblate.zone_id
+  name     = "${local.dns_namespace_for_environment}${data.aws_route53_zone.weblate.name}"
   type     = "A"
 
   alias {

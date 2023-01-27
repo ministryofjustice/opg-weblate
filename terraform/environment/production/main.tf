@@ -1,5 +1,5 @@
-module "environment" {
-  source = "../modules/environment"
+module "weblate" {
+  source = "../modules/weblate"
 
   application_log_retention_days  = 30
   ecs_capacity_provider           = "FARGATE_SPOT"
