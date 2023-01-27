@@ -1,6 +1,6 @@
 module "shared" {
-  source             = "../modules/shared"
-  network_cidr_block = "11.162.0.0/24"
+  source             = "../../modules/shared"
+  network_cidr_block = "9.0.0.0/16"
 
   providers = {
     aws.region     = aws.eu_west_1
