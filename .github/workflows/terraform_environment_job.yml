@@ -56,12 +56,12 @@ jobs:
       - name: Lint Terraform
         id: tf_lint
         run: terraform fmt -check -recursive
-        working-directory: ./terraform/environment
+        working-directory: ./terraform/environment/${{ inputs.environment_path }}
         continue-on-error: true
 
       - name: Terraform Init
         run: terraform init -input=false
-        working-directory: ./terraform/environment
+        working-directory: ./terraform/environment/${{ inputs.environment_path }}
 
       - name: Terraform Plan
         env:
@@ -87,4 +87,4 @@ jobs:
       #   run: |
       #     echo "workspace_name=$(terraform output -raw workspace_name)" >> $GITHUB_OUTPUT
       #     echo "url=$(terraform output -raw app_fqdn)" >> $GITHUB_OUTPUT
-      #   working-directory: ./terraform/environment
+      #   working-directory: ./terraform/environment/${{ inputs.environment_path }}
