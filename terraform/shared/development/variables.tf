@@ -1,5 +1,5 @@
 locals {
-  environment_name = "developement"
+  environment_name = "development"
 
   mandatory_moj_tags = {
     business-unit    = "OPG"
