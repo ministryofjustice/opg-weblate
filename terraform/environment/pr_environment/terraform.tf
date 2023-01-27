@@ -28,7 +28,7 @@ provider "aws" {
     tags = local.default_tags
   }
   assume_role {
-    role_arn     = "arn:aws:iam::653761790766:role/${var.default_role}"
+    role_arn     = "arn:aws:iam::679638075911:role/${var.default_role}"
     session_name = "opg-weblate-terraform-session"
   }
 }
@@ -40,7 +40,7 @@ provider "aws" {
     tags = local.default_tags
   }
   assume_role {
-    role_arn     = "arn:aws:iam::653761790766:role/${var.default_role}"
+    role_arn     = "arn:aws:iam::679638075911:role/${var.default_role}"
     session_name = "opg-weblate-terraform-session"
   }
 }
