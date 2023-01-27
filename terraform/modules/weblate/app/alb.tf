@@ -45,7 +45,7 @@ resource "aws_lb_listener" "weblate_loadbalancer_http_redirect" {
 }
 
 locals {
-  dev_wildcard = data.aws_default_tags.current.tags.environment-name == "production" ? "" : "*."
+  dev_wildcard = data.aws_default_tags.current.tags.is-production ? "" : "*."
   dev_app_fqdn = "${local.name_prefix}.weblate.opg.service.justice.gov.uk"
 }
 
