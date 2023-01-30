@@ -35,14 +35,14 @@ module "aurora_serverless_v1_postgres" {
 
 resource "aws_db_parameter_group" "postgresql" {
   name        = "${local.name_prefix}-aurora-db-postgres-parameter-group"
-  family      = "aurora-postgresql11"
+  family      = "aurora-postgresql10"
   description = "${local.name_prefix}-aurora-db-postgres-parameter-group"
   provider = aws.region
 }
 
 resource "aws_rds_cluster_parameter_group" "postgresql" {
   name        = "${local.name_prefix}-aurora-postgres-cluster-parameter-group"
-  family      = "aurora-postgresql11"
+  family      = "aurora-postgresql10"
   description = "${local.name_prefix}-aurora-postgres-cluster-parameter-group"
   provider = aws.region
 }
