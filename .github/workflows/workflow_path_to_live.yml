@@ -38,7 +38,7 @@ jobs:
     environment:
       name: production
       url: "https://weblate.opg.service.justice.gov.uk"
-    needs: [pr_deploy]
+    needs: [production_deploy]
     steps:
       - name: End of PR Workflow
         run: |
