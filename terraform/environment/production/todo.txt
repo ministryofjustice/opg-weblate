@@ -1,0 +1,16 @@
+terraform basics
+
+configure terraform backend
+  use a production statefile
+  use the default workspace
+  set up all required terraform providers
+
+provide config for local dev (.envrc, tfswitchrc)
+
+deploy a production environment weblate service in this new structure
+set up a path to live workflow
+
+create unique workspaces for pr environments
+  create db for workspace cleanup
+  implement workspace manager
+  set up cleanup workflows
