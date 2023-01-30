@@ -33,3 +33,15 @@ data "aws_subnet" "public" {
   }
   provider = aws.region
 }
+
+data "aws_subnet" "data" {
+  count             = 3
+  vpc_id            = data.aws_vpc.main.id
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+
+  filter {
+    name   = "tag:Name"
+    values = ["*data*"]
+  }
+  provider = aws.region
+}
