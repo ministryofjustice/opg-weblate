@@ -2,20 +2,20 @@ locals {
   name_prefix = "${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.environment-name}-${data.aws_region.current.name}"
 
   weblate_docker_configuration = {
-    weblate_loglevel = ""
-    weblate_loglevel_database = ""
+    weblate_loglevel = 0 # 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = CRITICAL
+    weblate_loglevel_database = 0 # 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = CRITICAL
     weblate_site_title = "OPG Weblate"
     weblate_site_domain = aws_route53_record.app.fqdn
     weblate_admin_name = "opg-weblate"
     weblate_registration_open = 0
-    weblate_allowed_hosts = ""
+    weblate_allowed_hosts = aws_route53_record.app.fqdn
     weblate_time_zone = "Europe/London"
     weblate_enable_https = 1
-    weblate_require_login = ""
-    weblate_basic_languages = ""
-    weblate_ratelimit_attempts = ""
-    weblate_ratelimit_lockout = ""
-    weblate_ratelimit_window = ""
+    weblate_require_login = 1
+    weblate_basic_languages = tostring({"cy", "en"})
+    weblate_ratelimit_attempts = 5
+    weblate_ratelimit_lockout = 300
+    weblate_ratelimit_window = 600
     postgres_user = module.aurora_serverless_v1_postgres.cluster_master_username
     postgres_host = module.aurora_serverless_v1_postgres.cluster_endpoint
     postgres_port = module.aurora_serverless_v1_postgres.cluster_port
