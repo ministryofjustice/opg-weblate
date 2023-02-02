@@ -24,7 +24,8 @@ locals {
 
 resource "aws_secretsmanager_secret" "app_secrets" {
   for_each = toset(local.app_secrets)
-  name       = "${local.name_prefix}-${each.key}"
+  name       = "new-${local.name_prefix}-${each.key}"
+  recovery_window_in_days = 0
   provider = aws.region
 }
 

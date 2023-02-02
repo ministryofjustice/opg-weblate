@@ -20,7 +20,8 @@ module "aurora_serverless_v1_postgres" {
   db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.postgresql.id
   create_random_password = false
   master_password = aws_secretsmanager_secret_version.app_secrets["postgres_password"].secret_string
-  master_username = local.weblate_docker_configuration.postgres_user
+  master_username = "root"
+  database_name = "weblate"
   # enabled_cloudwatch_logs_exports = # NOT SUPPORTED
 
   scaling_configuration = {

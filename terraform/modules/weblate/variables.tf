@@ -17,9 +17,9 @@ locals {
     weblate_ratelimit_lockout = ""
     weblate_ratelimit_window = ""
     postgres_user = module.aurora_serverless_v1_postgres.cluster_master_username
-    postgres_database = module.aurora_serverless_v1_postgres.cluster_database_name
     postgres_host = module.aurora_serverless_v1_postgres.cluster_endpoint
     postgres_port = module.aurora_serverless_v1_postgres.cluster_port
+    postgres_database = module.aurora_serverless_v1_postgres.cluster_database_name
     postgres_ssl_mode = "require"
     postgres_alter_role = "weblate"
     postgres_conn_max_age = 3600
