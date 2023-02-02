@@ -119,7 +119,7 @@ locals {
       essential              = true,
       image                  = "${var.weblate_repository_url}:${var.weblate_container_version}",
       mountPoints            = [],
-      readonlyRootFilesystem = true
+      readonlyRootFilesystem = false
       name                   = "weblate",
       portMappings = [
         {
