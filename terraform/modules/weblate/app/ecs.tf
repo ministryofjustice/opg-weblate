@@ -29,8 +29,8 @@ resource "aws_ecs_service" "weblate" {
   }
 
   timeouts {
-    create = "7m"
-    update = "7m"
+    create = "2m"
+    update = "2m"
   }
   provider = aws.region
 }
@@ -137,18 +137,144 @@ locals {
           awslogs-stream-prefix = data.aws_default_tags.current.tags.environment-name
         }
       },
+      secrets = [
+        {
+          name      = "WEBLATE_ADMIN_PASSWORD",
+          valueFrom = var.app_secrets_arns.weblate_admin_password
+      },
+        {
+          name      = "POSTGRES_PASSWORD",
+          valueFrom = var.app_secrets_arns.postgres_password
+      },
+        {
+          name      = "REDIS_PASSWORD",
+          valueFrom = var.app_secrets_arns.redis_password
+      },
+        {
+          name      = "WEBLATE_EMAIL_HOST_PASSWORD",
+          valueFrom = var.app_secrets_arns.weblate_email_host_password
+      }
+      ],
       environment = [
         {
-          name  = "LOGGING_LEVEL",
-          value = tostring(100)
+          name = "WEBLATE_LOGLEVEL",
+          value = tostring(var.app_env_vars.weblate_loglevel)
         },
         {
-          name  = "APP_PORT",
-          value = tostring(var.container_port)
+          name = "WEBLATE_LOGLEVEL_DATABASE",
+          value = tostring(var.app_env_vars.weblate_loglevel_database)
         },
         {
-          name  = "WEBLATE_SITE_DOMAIN",
-          value = var.app_env_vars.weblate_site_domain
+          name = "WEBLATE_SITE_TITLE",
+          value = tostring(var.app_env_vars.weblate_site_title)
+        },
+        {
+          name = "WEBLATE_SITE_DOMAIN",
+          value = tostring(var.app_env_vars.weblate_site_domain)
+        },
+        {
+          name = "WEBLATE_ADMIN_NAME",
+          value = tostring(var.app_env_vars.weblate_admin_name)
+        },
+        {
+          name = "WEBLATE_REGISTRATION_OPEN",
+          value = tostring(var.app_env_vars.weblate_registration_open)
+        },
+        {
+          name = "WEBLATE_ALLOWED_HOSTS",
+          value = tostring(var.app_env_vars.weblate_allowed_hosts)
+        },
+        {
+          name = "WEBLATE_TIME_ZONE",
+          value = tostring(var.app_env_vars.weblate_time_zone)
+        },
+        {
+          name = "WEBLATE_ENABLE_HTTPS",
+          value = tostring(var.app_env_vars.weblate_enable_https)
+        },
+        {
+          name = "WEBLATE_REQUIRE_LOGIN",
+          value = tostring(var.app_env_vars.weblate_require_login)
+        },
+        {
+          name = "WEBLATE_BASIC_LANGUAGES",
+          value = tostring(var.app_env_vars.weblate_basic_languages)
+        },
+        {
+          name = "WEBLATE_RATELIMIT_ATTEMPTS",
+          value = tostring(var.app_env_vars.weblate_ratelimit_attempts)
+        },
+        {
+          name = "WEBLATE_RATELIMIT_LOCKOUT",
+          value = tostring(var.app_env_vars.weblate_ratelimit_lockout)
+        },
+        {
+          name = "WEBLATE_RATELIMIT_WINDOW",
+          value = tostring(var.app_env_vars.weblate_ratelimit_window)
+        },
+        {
+          name = "POSTGRES_USER",
+          value = tostring(var.app_env_vars.postgres_user)
+        },
+        {
+          name = "POSTGRES_DATABASE",
+          value = tostring(var.app_env_vars.postgres_database)
+        },
+        {
+          name = "POSTGRES_HOST",
+          value = tostring(var.app_env_vars.postgres_host)
+        },
+        {
+          name = "POSTGRES_PORT",
+          value = tostring(var.app_env_vars.postgres_port)
+        },
+        {
+          name = "POSTGRES_SSL_MODE",
+          value = tostring(var.app_env_vars.postgres_ssl_mode)
+        },
+        {
+          name = "POSTGRES_ALTER_ROLE",
+          value = tostring(var.app_env_vars.postgres_alter_role)
+        },
+        {
+          name = "POSTGRES_CONN_MAX_AGE",
+          value = tostring(var.app_env_vars.postgres_conn_max_age)
+        },
+        {
+          name = "REDIS_HOST",
+          value = tostring(var.app_env_vars.redis_host)
+        },
+        {
+          name = "REDIS_PORT",
+          value = tostring(var.app_env_vars.redis_port)
+        },
+        {
+          name = "REDIS_DB",
+          value = tostring(var.app_env_vars.redis_db)
+        },
+        {
+          name = "WEBLATE_EMAIL_HOST",
+          value = tostring(var.app_env_vars.weblate_email_host)
+        },
+        {
+          name = "WEBLATE_EMAIL_PORT",
+          value = tostring(var.app_env_vars.weblate_email_port)
+        },
+        {
+          name = "WEBLATE_EMAIL_HOST_USER",
+          value = tostring(var.app_env_vars.weblate_email_host_user)
+        },
+        {
+          name = "WEBLATE_EMAIL_USE_SSL",
+          value = tostring(var.app_env_vars.weblate_email_use_ssl)
+        },
+        {
+          name = "WEBLATE_EMAIL_USE_TLS",
+          value = tostring(var.app_env_vars.weblate_email_use_tls)
+        },
+        {
+          name = "WEBLATE_EMAIL_BACKEND",
+          value = tostring(var.app_env_vars.weblate_email_backend)
         }
       ]
     }

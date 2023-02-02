@@ -1,5 +1,39 @@
 locals {
   name_prefix = "${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.environment-name}-${data.aws_region.current.name}"
+
+  weblate_docker_configuration = {
+    weblate_loglevel = 0 # 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = CRITICAL
+    weblate_loglevel_database = 0 # 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = CRITICAL
+    weblate_site_title = "OPG Weblate"
+    weblate_site_domain = aws_route53_record.app.fqdn
+    weblate_admin_name = "opg-weblate"
+    weblate_registration_open = 0
+    weblate_allowed_hosts = aws_route53_record.app.fqdn
+    weblate_time_zone = "Europe/London"
+    weblate_enable_https = 1
+    weblate_require_login = 1
+    weblate_basic_languages = ""
+    weblate_ratelimit_attempts = 5
+    weblate_ratelimit_lockout = 300
+    weblate_ratelimit_window = 600
+    postgres_user = module.aurora_serverless_v1_postgres.cluster_master_username
+    postgres_host = module.aurora_serverless_v1_postgres.cluster_endpoint
+    postgres_port = module.aurora_serverless_v1_postgres.cluster_port
+    postgres_database = module.aurora_serverless_v1_postgres.cluster_database_name
+    postgres_ssl_mode = "require"
+    postgres_alter_role = "weblate"
+    postgres_conn_max_age = 3600
+    postgres_disable_server_side_cursors = 1
+    redis_host = ""
+    redis_port = ""
+    redis_db = ""
+    weblate_email_host = ""
+    weblate_email_port = ""
+    weblate_email_host_user = ""
+    weblate_email_use_ssl = ""
+    weblate_email_use_tls = ""
+    weblate_email_backend = ""
+  }
 }
 
 variable "application_log_retention_days" {
