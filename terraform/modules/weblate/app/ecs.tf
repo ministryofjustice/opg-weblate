@@ -29,8 +29,8 @@ resource "aws_ecs_service" "weblate" {
   }
 
   timeouts {
-    create = "7m"
-    update = "7m"
+    create = "2m"
+    update = "2m"
   }
   provider = aws.region
 }

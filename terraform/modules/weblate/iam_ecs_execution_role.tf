@@ -33,12 +33,27 @@ data "aws_iam_policy_document" "execution_role" {
       "ecr:BatchCheckLayerAvailability",
     ]
   }
+
   statement {
     effect    = "Allow"
     resources = ["*"] #tfsec:ignore:aws-iam-no-policy-wildcards
     actions = [
       "logs:CreateLogStream",
       "logs:PutLogEvents",
+    ]
+  }
+
+  statement {
+    sid    = "EcsSecretAccess"
+    effect = "Allow"
+
+    actions = [
+      "secretsmanager:GetSecretValue",
+      "secretsmanager:DescribeSecret",
+    ]
+
+    resources = [
+      "arn:aws:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:new-${local.name_prefix}/*"
     ]
   }
   provider = aws.global

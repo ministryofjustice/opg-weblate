@@ -12,7 +12,7 @@ locals {
     weblate_time_zone = "Europe/London"
     weblate_enable_https = 1
     weblate_require_login = 1
-    weblate_basic_languages = tostring({"cy", "en"})
+    weblate_basic_languages = ""
     weblate_ratelimit_attempts = 5
     weblate_ratelimit_lockout = 300
     weblate_ratelimit_window = 600
