@@ -24,9 +24,9 @@ locals {
     postgres_alter_role = "weblate"
     postgres_conn_max_age = 3600
     postgres_disable_server_side_cursors = 1
-    redis_host = ""
-    redis_port = ""
-    redis_db = ""
+    redis_host = "cache"
+    redis_port = 6379
+    redis_db = 1
     weblate_email_host = ""
     weblate_email_port = ""
     weblate_email_host_user = ""
