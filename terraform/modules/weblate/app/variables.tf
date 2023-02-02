@@ -73,3 +73,8 @@ variable "app_env_vars" {
   type        = any
   description = "Environment variable values for app"
 }
+
+variable "app_secrets_arns" {
+  type        = any
+  description = "ECS task definition secrets ARNs for app"
+}
