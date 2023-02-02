@@ -27,9 +27,7 @@ module "app" {
   ecs_service_desired_count      = 0
   ecs_application_log_group_name = module.application_logs.cloudwatch_log_group.name
   ecs_capacity_provider          = var.ecs_capacity_provider
-  app_env_vars = {
-    weblate_site_domain = aws_route53_record.app.fqdn
-  }
+  app_env_vars                   =                  local.weblate_docker_configuration
   weblate_repository_url          = var.weblate_repository_url
   weblate_container_version       = var.weblate_container_version
   ingress_allow_list_cidr         = module.allow_list.moj_sites
