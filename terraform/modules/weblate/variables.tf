@@ -2,17 +2,18 @@ locals {
   name_prefix = "${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.environment-name}-${data.aws_region.current.name}"
 
   weblate_docker_configuration = {
-    weblate_loglevel = 0 # 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = CRITICAL
-    weblate_loglevel_database = 0 # 0 = DEBUG, 1 = INFO, 2 = WARNING, 3 = ERROR, 4 = CRITICAL
+    weblate_loglevel = "DEBUG"
+    weblate_loglevel_database = "DEBUG"
     weblate_site_title = "OPG Weblate"
     weblate_site_domain = aws_route53_record.app.fqdn
     weblate_admin_name = "opg-weblate"
+    weblate_admin_email = "noreply@example.com"
     weblate_registration_open = 0
     weblate_allowed_hosts = aws_route53_record.app.fqdn
     weblate_time_zone = "Europe/London"
     weblate_enable_https = 1
     weblate_require_login = 1
-    weblate_basic_languages = ""
+    # weblate_basic_languages = "" # This only limits non privileged users to add unwanted languages. The project admins are still presented with full selection of languages defined in Weblate.
     weblate_ratelimit_attempts = 5
     weblate_ratelimit_lockout = 300
     weblate_ratelimit_window = 600
@@ -27,12 +28,12 @@ locals {
     redis_host = "cache"
     redis_port = 6379
     redis_db = 1
-    weblate_email_host = ""
-    weblate_email_port = ""
-    weblate_email_host_user = ""
-    weblate_email_use_ssl = ""
-    weblate_email_use_tls = ""
-    weblate_email_backend = ""
+    weblate_email_backend = "django.core.mail.backends.dummy.EmailBackend" # "django.core.mail.backends.smtp.EmailBackend". To disable sending e-mails by Weblate set EMAIL_BACKEND to django.core.mail.backends.dummy.EmailBackend. see https://docs.weblate.org/en/latest/admin/install.html#production-email
+    weblate_email_host = "smtp.example.com"
+    weblate_email_port = 587 # 587 = STARTTLS, 465 = TLS Wrapper see https://docs.aws.amazon.com/ses/latest/dg/smtp-connect.html
+    weblate_email_host_user = "user"
+    weblate_email_use_ssl = 1 # one or other of these are set in ecs container definition
+    weblate_email_use_tls = 1 # one or other of these are set in ecs container definition
   }
 }
 
