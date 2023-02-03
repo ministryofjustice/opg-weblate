@@ -77,8 +77,8 @@ resource "aws_ecs_task_definition" "weblate" {
   family                   = local.name_prefix
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = 512
-  memory                   = 1024
+  cpu                      = 1024
+  memory                   = 2048
   container_definitions    = "[${local.weblate}]"
   task_role_arn            = var.ecs_task_role.arn
   execution_role_arn       = var.ecs_execution_role.arn
@@ -146,10 +146,10 @@ locals {
           name      = "POSTGRES_PASSWORD",
           valueFrom = var.app_secrets_arns.postgres_password
       },
-        {
-          name      = "REDIS_PASSWORD",
-          valueFrom = var.app_secrets_arns.redis_password
-      },
+      #   {
+      #     name      = "REDIS_PASSWORD",
+      #     valueFrom = var.app_secrets_arns.redis_password
+      # },
         {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
