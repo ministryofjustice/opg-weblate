@@ -1,7 +1,7 @@
 resource "aws_security_group" "weblate_cache" {
   provider    = aws.region
-  name_prefix = "weblate-cache"
-  description = "weblate cache sg"
+  name_prefix = "${local.name_prefix}-cache"
+  description = "${data.aws_default_tags.current.tags.application} ${data.aws_default_tags.current.tags.environment-name} ${data.aws_region.current.name} cache sg"
   vpc_id      = data.aws_vpc.main.id
   lifecycle {
     create_before_destroy = true
@@ -10,14 +10,14 @@ resource "aws_security_group" "weblate_cache" {
 
 resource "aws_elasticache_subnet_group" "private_subnets" {
   provider   = aws.region
-  name       = "data-subnets"
-  subnet_ids = data.aws_subnet.data[*].id
+  name       = "${local.name_prefix}-application-subnets"
+  subnet_ids = data.aws_subnet.application[*].id
 }
 
 resource "aws_elasticache_replication_group" "weblate_cache" {
   provider                   = aws.region
   automatic_failover_enabled = true
-  replication_group_id       = "weblate-cache"
+  replication_group_id       = "${local.name_prefix}-cache"
   description                = "weblate redis cache"
   parameter_group_name       = "default.redis7"
   engine_version             = "7.0"
