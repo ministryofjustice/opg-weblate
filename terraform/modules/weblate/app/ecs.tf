@@ -196,10 +196,10 @@ locals {
           name = "WEBLATE_REQUIRE_LOGIN",
           value = tostring(var.app_env_vars.weblate_require_login)
         },
-        {
-          name = "WEBLATE_BASIC_LANGUAGES",
-          value = tostring(var.app_env_vars.weblate_basic_languages)
-        },
+        # {
+        #   name = "WEBLATE_BASIC_LANGUAGES",
+        #   value = tostring(var.app_env_vars.weblate_basic_languages)
+        # },
         {
           name = "WEBLATE_RATELIMIT_ATTEMPTS",
           value = tostring(var.app_env_vars.weblate_ratelimit_attempts)
@@ -268,10 +268,10 @@ locals {
           name = "WEBLATE_EMAIL_USE_SSL",
           value = tostring(var.app_env_vars.weblate_email_use_ssl)
         },
-        {
-          name = "WEBLATE_EMAIL_USE_TLS",
-          value = tostring(var.app_env_vars.weblate_email_use_tls)
-        },
+        # {
+        #   name = "WEBLATE_EMAIL_USE_TLS",
+        #   value = tostring(var.app_env_vars.weblate_email_use_tls)
+        # },
         {
           name = "WEBLATE_EMAIL_BACKEND",
           value = tostring(var.app_env_vars.weblate_email_backend)
