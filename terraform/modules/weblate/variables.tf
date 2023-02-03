@@ -29,6 +29,7 @@ locals {
     redis_port = 6379
     redis_db = 1
     redis_tls = 1
+    redis_verify_ssl = 1
     weblate_email_backend = "django.core.mail.backends.dummy.EmailBackend" # "django.core.mail.backends.smtp.EmailBackend". To disable sending e-mails by Weblate set EMAIL_BACKEND to django.core.mail.backends.dummy.EmailBackend. see https://docs.weblate.org/en/latest/admin/install.html#production-email
     weblate_email_host = "smtp.example.com"
     weblate_email_port = 587 # 587 = STARTTLS, 465 = TLS Wrapper see https://docs.aws.amazon.com/ses/latest/dg/smtp-connect.html
