@@ -253,6 +253,10 @@ locals {
           value = tostring(var.app_env_vars.redis_db)
         },
         {
+          name = "REDIS_TLS",
+          value = tostring(var.app_env_vars.redis_tls)
+        },
+        {
           name = "WEBLATE_EMAIL_HOST",
           value = tostring(var.app_env_vars.weblate_email_host)
         },
