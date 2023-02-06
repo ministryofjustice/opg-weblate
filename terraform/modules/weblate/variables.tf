@@ -11,7 +11,7 @@ locals {
     weblate_allowed_hosts     = aws_route53_record.app.fqdn
     weblate_time_zone         = "Europe/London"
     weblate_enable_https      = 1
-    weblate_require_login     = 0
+    weblate_require_login     = 1
     # weblate_basic_languages = "" # This only limits non privileged users to add unwanted languages. The project admins are still presented with full selection of languages defined in Weblate.
     weblate_ratelimit_attempts           = 5
     weblate_ratelimit_lockout            = 300
