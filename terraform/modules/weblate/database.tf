@@ -16,8 +16,8 @@ module "aurora_serverless_v1_postgres" {
   apply_immediately   = true
   skip_final_snapshot = true
 
-  db_parameter_group_name         = aws_db_parameter_group.postgresql.id
-  db_cluster_parameter_group_name = aws_rds_cluster_parameter_group.postgresql.id
+  db_parameter_group_name         = "default.aurora-postgresql11"
+  db_cluster_parameter_group_name = "default.aurora-postgresql11"
   create_random_password = false
   master_password = aws_secretsmanager_secret_version.app_secrets["postgres_password"].secret_string
   master_username = "root"

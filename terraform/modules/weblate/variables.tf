@@ -63,3 +63,9 @@ variable "alb_deletion_protection_enabled" {
   type        = bool
   description = "If true, deletion of the load balancer will be disabled via the AWS API. This will prevent Terraform from deleting the load balancer. Defaults to false."
 }
+
+variable "ecs_service_desired_count" {
+  type        = number
+  description = "The number of instances of the task definition to place and keep running."
+  default = 0
+}

@@ -13,7 +13,7 @@ locals {
 
   optional_tags = {
     infrastructure-support = "OPG Webops: opgteam+opg-weblate@digital.justice.gov.uk"
-    account-name           = "shared-development"
+    account-name           = "development"
   }
 
   default_tags = merge(local.mandatory_moj_tags, local.optional_tags)

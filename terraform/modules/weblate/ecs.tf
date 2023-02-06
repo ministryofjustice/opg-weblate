@@ -24,7 +24,7 @@ module "app" {
   ecs_cluster                    = aws_ecs_cluster.main.id
   ecs_execution_role             = aws_iam_role.execution_role
   ecs_task_role                  = aws_iam_role.app_task_role
-  ecs_service_desired_count      = 0
+  ecs_service_desired_count      = var.ecs_service_desired_count
   ecs_application_log_group_name = module.application_logs.cloudwatch_log_group.name
   ecs_capacity_provider          = var.ecs_capacity_provider
   app_env_vars                   =  local.weblate_docker_configuration
