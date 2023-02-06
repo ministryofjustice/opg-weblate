@@ -2,40 +2,40 @@ locals {
   name_prefix = "${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.environment-name}-${data.aws_region.current.name}"
 
   weblate_docker_configuration = {
-    weblate_loglevel = "DEBUG"
+    weblate_loglevel          = "DEBUG"
     weblate_loglevel_database = "DEBUG"
-    weblate_site_title = "OPG Weblate"
-    weblate_site_domain = aws_route53_record.app.fqdn
-    weblate_admin_name = "opg-weblate"
-    weblate_admin_email = "noreply@example.com"
+    weblate_site_title        = "OPG Weblate"
+    weblate_site_domain       = aws_route53_record.app.fqdn
+    weblate_admin_name        = "opg-weblate"
+    weblate_admin_email       = "noreply@example.com"
     weblate_registration_open = 0
-    weblate_allowed_hosts = aws_route53_record.app.fqdn
-    weblate_time_zone = "Europe/London"
-    weblate_enable_https = 1
-    weblate_require_login = 1
+    weblate_allowed_hosts     = aws_route53_record.app.fqdn
+    weblate_time_zone         = "Europe/London"
+    weblate_enable_https      = 1
+    weblate_require_login     = 1
     # weblate_basic_languages = "" # This only limits non privileged users to add unwanted languages. The project admins are still presented with full selection of languages defined in Weblate.
-    weblate_ratelimit_attempts = 5
-    weblate_ratelimit_lockout = 300
-    weblate_ratelimit_window = 600
-    postgres_user = module.aurora_serverless_v1_postgres.cluster_master_username
-    postgres_host = module.aurora_serverless_v1_postgres.cluster_endpoint
-    postgres_port = module.aurora_serverless_v1_postgres.cluster_port
-    postgres_database = module.aurora_serverless_v1_postgres.cluster_database_name
-    postgres_ssl_mode = "require"
-    postgres_alter_role = "weblate"
-    postgres_conn_max_age = 3600
+    weblate_ratelimit_attempts           = 5
+    weblate_ratelimit_lockout            = 300
+    weblate_ratelimit_window             = 600
+    postgres_user                        = module.aurora_serverless_v1_postgres.cluster_master_username
+    postgres_host                        = module.aurora_serverless_v1_postgres.cluster_endpoint
+    postgres_port                        = module.aurora_serverless_v1_postgres.cluster_port
+    postgres_database                    = module.aurora_serverless_v1_postgres.cluster_database_name
+    postgres_ssl_mode                    = "require"
+    postgres_alter_role                  = "weblate"
+    postgres_conn_max_age                = 3600
     postgres_disable_server_side_cursors = 1
-    redis_host = data.aws_elasticache_replication_group.weblate_cache.primary_endpoint_address
-    redis_port = 6379
-    redis_db = 1
-    redis_tls = 1
-    redis_verify_ssl = 1
-    weblate_email_backend = "django.core.mail.backends.dummy.EmailBackend" # "django.core.mail.backends.smtp.EmailBackend". To disable sending e-mails by Weblate set EMAIL_BACKEND to django.core.mail.backends.dummy.EmailBackend. see https://docs.weblate.org/en/latest/admin/install.html#production-email
-    weblate_email_host = "smtp.example.com"
-    weblate_email_port = 587 # 587 = STARTTLS, 465 = TLS Wrapper see https://docs.aws.amazon.com/ses/latest/dg/smtp-connect.html
-    weblate_email_host_user = "user"
-    weblate_email_use_ssl = 1 # one or other of these are set in ecs container definition
-    weblate_email_use_tls = 1 # one or other of these are set in ecs container definition
+    redis_host                           = data.aws_elasticache_replication_group.weblate_cache.primary_endpoint_address
+    redis_port                           = 6379
+    redis_db                             = 1
+    redis_tls                            = 1
+    redis_verify_ssl                     = 1
+    weblate_email_backend                = "django.core.mail.backends.dummy.EmailBackend" # "django.core.mail.backends.smtp.EmailBackend". To disable sending e-mails by Weblate set EMAIL_BACKEND to django.core.mail.backends.dummy.EmailBackend. see https://docs.weblate.org/en/latest/admin/install.html#production-email
+    weblate_email_host                   = "smtp.example.com"
+    weblate_email_port                   = 587 # 587 = STARTTLS, 465 = TLS Wrapper see https://docs.aws.amazon.com/ses/latest/dg/smtp-connect.html
+    weblate_email_host_user              = "user"
+    weblate_email_use_ssl                = 1 # one or other of these are set in ecs container definition
+    weblate_email_use_tls                = 1 # one or other of these are set in ecs container definition
   }
 }
 
@@ -67,5 +67,5 @@ variable "alb_deletion_protection_enabled" {
 variable "ecs_service_desired_count" {
   type        = number
   description = "The number of instances of the task definition to place and keep running."
-  default = 0
+  default     = 0
 }

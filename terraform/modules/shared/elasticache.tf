@@ -6,7 +6,7 @@ resource "aws_security_group" "weblate_cache" {
   lifecycle {
     create_before_destroy = true
   }
-  tags = {"Name" = "${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.account-name}-${data.aws_region.current.name}-cache"}
+  tags = { "Name" = "${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.account-name}-${data.aws_region.current.name}-cache" }
 }
 
 resource "aws_elasticache_subnet_group" "private_subnets" {

@@ -13,16 +13,16 @@ module "aurora_serverless_v1_postgres" {
 
   monitoring_interval = 60
 
-  apply_immediately   = true
-  skip_final_snapshot = true
+  apply_immediately    = true
+  skip_final_snapshot  = true
   enable_http_endpoint = true
 
   db_parameter_group_name         = "default.aurora-postgresql11"
   db_cluster_parameter_group_name = "default.aurora-postgresql11"
-  create_random_password = false
-  master_password = aws_secretsmanager_secret_version.app_secrets["postgres_password"].secret_string
-  master_username = "root"
-  database_name = "weblate"
+  create_random_password          = false
+  master_password                 = aws_secretsmanager_secret_version.app_secrets["postgres_password"].secret_string
+  master_username                 = "root"
+  database_name                   = "weblate"
   # enabled_cloudwatch_logs_exports = # NOT SUPPORTED
 
   scaling_configuration = {
@@ -35,19 +35,19 @@ module "aurora_serverless_v1_postgres" {
 
   providers = {
     aws = aws.region
-   }
+  }
 }
 
 resource "aws_db_parameter_group" "postgresql" {
   name        = "${local.name_prefix}-aurora-db-postgres-parameter-group"
   family      = "aurora-postgresql10"
   description = "${local.name_prefix}-aurora-db-postgres-parameter-group"
-  provider = aws.region
+  provider    = aws.region
 }
 
 resource "aws_rds_cluster_parameter_group" "postgresql" {
   name        = "${local.name_prefix}-aurora-postgres-cluster-parameter-group"
   family      = "aurora-postgresql10"
   description = "${local.name_prefix}-aurora-postgres-cluster-parameter-group"
-  provider = aws.region
+  provider    = aws.region
 }
