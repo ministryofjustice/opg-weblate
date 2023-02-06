@@ -73,12 +73,59 @@ resource "aws_security_group_rule" "weblate_ecs_service_egress" {
   provider = aws.region
 }
 
+
+data "aws_security_group" "weblate_elasticache" {
+  filter {
+    name   = "group-name"
+    values = ["${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.account-name}-${data.aws_region.current.name}-cache*"]
+  }
+  provider = aws.region
+}
+
+resource "aws_security_group_rule" "weblate_ecs_service_elasticache_ingress" {
+  description              = "Allow elasticache ingress for Use service"
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 6379
+  protocol                 = "tcp"
+  security_group_id        = data.aws_security_group.weblate_elasticache.id
+  source_security_group_id = aws_security_group.weblate_ecs_service.id
+  lifecycle {
+    create_before_destroy = true
+  }
+  provider = aws.region
+}
+
+data "aws_security_group" "weblate_database" {
+  filter {
+    name   = "group-name"
+    values = ["${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.account-name}-${data.aws_region.current.name}-postgresql*"]
+  }
+  provider = aws.region
+}
+
+resource "aws_security_group_rule" "weblate_ecs_service_database_ingress" {
+  description              = "Allow database ingress for Use service"
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 6379
+  protocol                 = "tcp"
+  security_group_id        = data.aws_security_group.weblate_database.id
+  source_security_group_id = aws_security_group.weblate_ecs_service.id
+  lifecycle {
+    create_before_destroy = true
+  }
+  provider = aws.region
+}
+
+
+
 resource "aws_ecs_task_definition" "weblate" {
   family                   = local.name_prefix
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
-  cpu                      = 512
-  memory                   = 1024
+  cpu                      = 1024
+  memory                   = 2048
   container_definitions    = "[${local.weblate}]"
   task_role_arn            = var.ecs_task_role.arn
   execution_role_arn       = var.ecs_execution_role.arn
@@ -146,10 +193,10 @@ locals {
           name      = "POSTGRES_PASSWORD",
           valueFrom = var.app_secrets_arns.postgres_password
       },
-        {
-          name      = "REDIS_PASSWORD",
-          valueFrom = var.app_secrets_arns.redis_password
-      },
+      #   {
+      #     name      = "REDIS_PASSWORD",
+      #     valueFrom = var.app_secrets_arns.redis_password
+      # },
         {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
@@ -232,10 +279,10 @@ locals {
           name = "POSTGRES_SSL_MODE",
           value = tostring(var.app_env_vars.postgres_ssl_mode)
         },
-        {
-          name = "POSTGRES_ALTER_ROLE",
-          value = tostring(var.app_env_vars.postgres_alter_role)
-        },
+        # {
+        #   name = "POSTGRES_ALTER_ROLE",
+        #   value = tostring(var.app_env_vars.postgres_alter_role)
+        # },
         {
           name = "POSTGRES_CONN_MAX_AGE",
           value = tostring(var.app_env_vars.postgres_conn_max_age)
@@ -251,6 +298,14 @@ locals {
         {
           name = "REDIS_DB",
           value = tostring(var.app_env_vars.redis_db)
+        },
+        {
+          name = "REDIS_TLS",
+          value = tostring(var.app_env_vars.redis_tls)
+        },
+        {
+          name = "REDIS_VERIFY_SSL",
+          value = tostring(var.app_env_vars.redis_verify_ssl)
         },
         {
           name = "WEBLATE_EMAIL_HOST",

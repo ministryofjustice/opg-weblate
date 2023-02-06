@@ -23,20 +23,20 @@ locals {
 }
 
 resource "aws_secretsmanager_secret" "app_secrets" {
-  for_each = toset(local.app_secrets)
-  name       = "new-${local.name_prefix}/${each.key}"
+  for_each                = toset(local.app_secrets)
+  name                    = "new-${local.name_prefix}/${each.key}"
   recovery_window_in_days = 0
-  provider = aws.region
+  provider                = aws.region
 }
 
 resource "random_password" "app_secrets" {
   for_each = toset(local.app_secrets)
-  length  = 32
-  special = false
+  length   = 32
+  special  = false
 }
 
 resource "aws_secretsmanager_secret_version" "app_secrets" {
-  for_each = toset(local.app_secrets)
+  for_each      = toset(local.app_secrets)
   secret_id     = aws_secretsmanager_secret.app_secrets[each.key].name
   secret_string = random_password.app_secrets[each.key].result
   lifecycle {
