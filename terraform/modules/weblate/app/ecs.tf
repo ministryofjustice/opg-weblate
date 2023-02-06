@@ -279,10 +279,10 @@ locals {
           name = "POSTGRES_SSL_MODE",
           value = tostring(var.app_env_vars.postgres_ssl_mode)
         },
-        {
-          name = "POSTGRES_ALTER_ROLE",
-          value = tostring(var.app_env_vars.postgres_alter_role)
-        },
+        # {
+        #   name = "POSTGRES_ALTER_ROLE",
+        #   value = tostring(var.app_env_vars.postgres_alter_role)
+        # },
         {
           name = "POSTGRES_CONN_MAX_AGE",
           value = tostring(var.app_env_vars.postgres_conn_max_age)

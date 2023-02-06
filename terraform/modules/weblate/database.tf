@@ -15,6 +15,7 @@ module "aurora_serverless_v1_postgres" {
 
   apply_immediately   = true
   skip_final_snapshot = true
+  enable_http_endpoint = true
 
   db_parameter_group_name         = "default.aurora-postgresql11"
   db_cluster_parameter_group_name = "default.aurora-postgresql11"
