@@ -7,18 +7,9 @@ locals {
   ]
   shared_secrets = [
     "weblate_admin_email",
-    "weblate_github_username",
-    "weblate_github_token",
-    "weblate_github_host",
+    "weblate_github",
     "weblate_gpg_identity",
-    "weblate_social_auth_github_key",
-    "weblate_social_auth_github_secret",
-    "weblate_social_auth_github_org_key",
-    "weblate_social_auth_github_org_secret",
-    "weblate_social_auth_github_org_name",
-    "weblate_social_auth_github_team_key",
-    "weblate_social_auth_github_team_secret",
-    "weblate_social_auth_github_team_id",
+    "weblate_social_auth_github",
   ]
 }
 
@@ -47,13 +38,8 @@ resource "aws_secretsmanager_secret_version" "app_secrets" {
   provider = aws.region
 }
 
-
-
-
-
-
-# data "aws_secretsmanager_secret_version" "shared_secrets" {
-#   for_each = to_set(local.shared_secrets)
-#   secret_id = each.key
-#   provider = aws.region
-# }
+data "aws_secretsmanager_secret" "shared_secrets" {
+  for_each = toset(local.shared_secrets)
+  name     = "new-${data.aws_default_tags.current.tags.application}-${data.aws_default_tags.current.tags.account-name}-${data.aws_region.current.name}/${each.key}"
+  provider = aws.region
+}

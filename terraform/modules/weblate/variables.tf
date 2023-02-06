@@ -7,12 +7,12 @@ locals {
     weblate_site_title        = "OPG Weblate"
     weblate_site_domain       = aws_route53_record.app.fqdn
     weblate_admin_name        = "opg-weblate"
-    weblate_admin_email       = "noreply@example.com"
+    # weblate_admin_email       = "noreply@example.com"
     weblate_registration_open = 0
     weblate_allowed_hosts     = aws_route53_record.app.fqdn
     weblate_time_zone         = "Europe/London"
     weblate_enable_https      = 1
-    weblate_require_login     = 1
+    weblate_require_login     = 0
     # weblate_basic_languages = "" # This only limits non privileged users to add unwanted languages. The project admins are still presented with full selection of languages defined in Weblate.
     weblate_ratelimit_attempts           = 5
     weblate_ratelimit_lockout            = 300
