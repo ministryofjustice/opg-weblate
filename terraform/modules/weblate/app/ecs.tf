@@ -25,8 +25,8 @@ resource "aws_ecs_service" "weblate" {
   }
 
   timeouts {
-    create = "2m"
-    update = "2m"
+    create = "3m"
+    update = "3m"
   }
   provider = aws.region
 }
@@ -200,6 +200,14 @@ locals {
         {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
+        },
+        {
+          name      = "WEBLATE_GITHUB_USERNAME",
+          valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_username::"
+        },
+        {
+          name      = "WEBLATE_GITHUB_TOKEN",
+          valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_token::"
         },
       ],
       environment = [
