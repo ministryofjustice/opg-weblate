@@ -24,10 +24,6 @@ resource "aws_ecs_service" "weblate" {
     container_port   = var.container_port
   }
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
   timeouts {
     create = "2m"
     update = "2m"
@@ -188,7 +184,11 @@ locals {
         {
           name      = "WEBLATE_ADMIN_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_admin_password
-      },
+        },
+        {
+          name      = "WEBLATE_ADMIN_EMAIL",
+          valueFrom = var.app_secrets_arns.weblate_admin_email
+        },
         {
           name      = "POSTGRES_PASSWORD",
           valueFrom = var.app_secrets_arns.postgres_password
@@ -200,7 +200,7 @@ locals {
         {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
-      }
+        },
       ],
       environment = [
         {

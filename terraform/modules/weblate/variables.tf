@@ -7,7 +7,6 @@ locals {
     weblate_site_title        = "OPG Weblate"
     weblate_site_domain       = aws_route53_record.app.fqdn
     weblate_admin_name        = "opg-weblate"
-    weblate_admin_email       = "noreply@example.com"
     weblate_registration_open = 0
     weblate_allowed_hosts     = aws_route53_record.app.fqdn
     weblate_time_zone         = "Europe/London"

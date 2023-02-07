@@ -3,7 +3,7 @@ module "weblate" {
 
   application_log_retention_days  = 30
   ecs_capacity_provider           = "FARGATE_SPOT"
-  ecs_service_desired_count       = 0
+  ecs_service_desired_count       = 1
   weblate_repository_url          = "weblate/weblate"
   weblate_container_version       = "latest"
   alb_deletion_protection_enabled = false
