@@ -193,19 +193,10 @@ locals {
           name      = "POSTGRES_PASSWORD",
           valueFrom = var.app_secrets_arns.postgres_password
       },
-      #   {
-      #     name      = "REDIS_PASSWORD",
-      #     valueFrom = var.app_secrets_arns.redis_password
-      # },
         {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
         },
-        # {
-        #   name      = "GITHUB_CREDENTIALS",
-        #   valueFrom = "${var.app_secrets_arns.weblate_github}"
-        # },
-        # },
         {
           name      = "WEBLATE_GITHUB_USERNAME",
           valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_username::"
@@ -296,10 +287,6 @@ locals {
           name = "POSTGRES_SSL_MODE",
           value = tostring(var.app_env_vars.postgres_ssl_mode)
         },
-        # {
-        #   name = "POSTGRES_ALTER_ROLE",
-        #   value = tostring(var.app_env_vars.postgres_alter_role)
-        # },
         {
           name = "POSTGRES_CONN_MAX_AGE",
           value = tostring(var.app_env_vars.postgres_conn_max_age)
