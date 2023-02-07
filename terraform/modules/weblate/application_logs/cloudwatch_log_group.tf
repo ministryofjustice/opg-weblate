@@ -8,7 +8,7 @@ resource "aws_cloudwatch_query_definition" "app_container_messages" {
   log_group_names = [aws_cloudwatch_log_group.application_logs.name]
 
   query_string = <<EOF
-fields @timestamp, message, concat(method, " ", url) as request, status
+fields @timestamp, @message
 | filter @message not like "ELB-HealthChecker"
 | sort @timestamp desc
 EOF

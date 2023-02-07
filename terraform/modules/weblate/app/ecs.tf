@@ -201,6 +201,11 @@ locals {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
         },
+        # {
+        #   name      = "GITHUB_CREDENTIALS",
+        #   valueFrom = "${var.app_secrets_arns.weblate_github}"
+        # },
+        # },
         {
           name      = "WEBLATE_GITHUB_USERNAME",
           valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_username::"
@@ -208,6 +213,10 @@ locals {
         {
           name      = "WEBLATE_GITHUB_TOKEN",
           valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_token::"
+        },
+        {
+          name      = "WEBLATE_GITHUB_HOST",
+          valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_host::"
         },
       ],
       environment = [

@@ -29,14 +29,14 @@ module "app" {
   ecs_capacity_provider          = var.ecs_capacity_provider
   app_env_vars                   = local.weblate_docker_configuration
   app_secrets_arns = {
-    weblate_admin_password         = aws_secretsmanager_secret.app_secrets["weblate_admin_password"].arn
-    weblate_admin_email            = data.aws_secretsmanager_secret.shared_secrets["weblate_admin_email"].arn
-    postgres_password              = aws_secretsmanager_secret.app_secrets["postgres_password"].arn
-    redis_password                 = aws_secretsmanager_secret.app_secrets["redis_password"].arn
-    weblate_email_host_password    = aws_secretsmanager_secret.app_secrets["weblate_email_host_password"].arn
+    weblate_admin_password      = aws_secretsmanager_secret.app_secrets["weblate_admin_password"].arn
+    weblate_admin_email         = data.aws_secretsmanager_secret.shared_secrets["weblate_admin_email"].arn
+    postgres_password           = aws_secretsmanager_secret.app_secrets["postgres_password"].arn
+    redis_password              = aws_secretsmanager_secret.app_secrets["redis_password"].arn
+    weblate_email_host_password = aws_secretsmanager_secret.app_secrets["weblate_email_host_password"].arn
     weblate_gpg_identity        = data.aws_secretsmanager_secret.shared_secrets["weblate_gpg_identity"].arn
-    weblate_github        = data.aws_secretsmanager_secret.shared_secrets["weblate_github"].arn
-    weblate_social_auth_github = data.aws_secretsmanager_secret.shared_secrets["weblate_social_auth_github"].arn
+    weblate_github              = data.aws_secretsmanager_secret.shared_secrets["weblate_github"].arn
+    weblate_social_auth_github  = data.aws_secretsmanager_secret.shared_secrets["weblate_social_auth_github"].arn
   }
   weblate_repository_url          = var.weblate_repository_url
   weblate_container_version       = var.weblate_container_version
