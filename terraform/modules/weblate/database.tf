@@ -4,7 +4,7 @@ module "aurora_serverless_v1_postgres" {
   name              = "${local.name_prefix}-postgresql"
   engine            = "aurora-postgresql"
   engine_mode       = "serverless"
-  engine_version    = "11.13"
+  engine_version    = "11.16"
   storage_encrypted = true
 
   vpc_id                = data.aws_vpc.main.id
