@@ -25,8 +25,8 @@ resource "aws_ecs_service" "weblate" {
   }
 
   timeouts {
-    create = "2m"
-    update = "2m"
+    create = "3m"
+    update = "3m"
   }
   provider = aws.region
 }
@@ -193,13 +193,21 @@ locals {
           name      = "POSTGRES_PASSWORD",
           valueFrom = var.app_secrets_arns.postgres_password
       },
-      #   {
-      #     name      = "REDIS_PASSWORD",
-      #     valueFrom = var.app_secrets_arns.redis_password
-      # },
         {
           name      = "WEBLATE_EMAIL_HOST_PASSWORD",
           valueFrom = var.app_secrets_arns.weblate_email_host_password
+        },
+        {
+          name      = "WEBLATE_GITHUB_USERNAME",
+          valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_username::"
+        },
+        {
+          name      = "WEBLATE_GITHUB_TOKEN",
+          valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_token::"
+        },
+        {
+          name      = "WEBLATE_GITHUB_HOST",
+          valueFrom = "${var.app_secrets_arns.weblate_github}:weblate_github_host::"
         },
       ],
       environment = [
@@ -279,10 +287,6 @@ locals {
           name = "POSTGRES_SSL_MODE",
           value = tostring(var.app_env_vars.postgres_ssl_mode)
         },
-        # {
-        #   name = "POSTGRES_ALTER_ROLE",
-        #   value = tostring(var.app_env_vars.postgres_alter_role)
-        # },
         {
           name = "POSTGRES_CONN_MAX_AGE",
           value = tostring(var.app_env_vars.postgres_conn_max_age)
