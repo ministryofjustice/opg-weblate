@@ -23,24 +23,24 @@ defaults:
     shell: bash
 
 jobs:
-  production_deploy:
-      name: Production Environment Deploy
-      uses: ./.github/workflows/terraform_environment_job.yml
-      with:
-        environment_path: production
-      secrets:
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_ACTIONS }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ACTIONS }}
-        ssh_deploy_key: ${{ secrets.OPG_WEBLATE_DEPLOY_KEY_PRIVATE_KEY }}
+  # production_deploy:
+  #     name: Production Environment Deploy
+  #     uses: ./.github/workflows/terraform_environment_job.yml
+  #     with:
+  #       environment_path: production
+  #     secrets:
+  #       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_ACTIONS }}
+  #       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ACTIONS }}
+  #       ssh_deploy_key: ${{ secrets.OPG_WEBLATE_DEPLOY_KEY_PRIVATE_KEY }}
   end_of_main_workflow:
     name: End of Path to Live Workflow
     runs-on: ubuntu-latest
     environment:
       name: production
       url: "https://weblate.opg.service.justice.gov.uk"
-    needs: [production_deploy]
+    # needs: [production_deploy]
     steps:
       - name: End of Path to Live Workflow
         run: |
-          echo "Development environment deployed"
+          echo "Production environment deployed"
           echo "URL: https://weblate.opg.service.justice.gov.uk"

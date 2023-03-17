@@ -23,23 +23,23 @@ defaults:
     shell: bash
 
 jobs:
-  pr_deploy:
-      name: PR Environment Deploy
-      uses: ./.github/workflows/terraform_environment_job.yml
-      with:
-        workspace_name: development
-        environment_path: pr_environments
-      secrets:
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_ACTIONS }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ACTIONS }}
-        ssh_deploy_key: ${{ secrets.OPG_WEBLATE_DEPLOY_KEY_PRIVATE_KEY }}
+  # pr_deploy:
+  #     name: PR Environment Deploy
+  #     uses: ./.github/workflows/terraform_environment_job.yml
+  #     with:
+  #       workspace_name: development
+  #       environment_path: pr_environments
+  #     secrets:
+  #       aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_ACTIONS }}
+  #       aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ACTIONS }}
+  #       ssh_deploy_key: ${{ secrets.OPG_WEBLATE_DEPLOY_KEY_PRIVATE_KEY }}
   end_of_pr_workflow:
     name: End of PR Workflow
     runs-on: ubuntu-latest
     environment:
       name: development
       url: "https://development.weblate.opg.service.justice.gov.uk"
-    needs: [pr_deploy]
+    # needs: [pr_deploy]
     steps:
       - name: End of PR Workflow
         run: |
